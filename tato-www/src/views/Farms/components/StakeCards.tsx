@@ -10,7 +10,7 @@ import useFarms from '../../../hooks/useFarms'
 import { Farm } from '../../../contexts/Farms'
 
 import { getPoolStartTime } from '../../../yamUtils'
-import loadImg from '../../../assets/img/tato-loading.png'
+import loadImg from '../../../assets/img/tea-loading.png'
 
 
 const moneyFilter = (s:number, n:number) => {
