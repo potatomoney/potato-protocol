@@ -4,7 +4,7 @@ TATO [teafinance.io](https://teafinance.io) is a token seeking price stability w
 More details on [Medium](https://medium.com/@teafarmer_alex/announcing-tato-finance-6dccb71b8912?sk:bf7f34f5b809accba2390a54824b0171).
 
 ## Deployed Contract
-* TATO: https://etherscan.io/address/0x504FA07ad26bF82455bC67653E8aaDB19d25FEe3 
+* TATO: https://etherscan.io/address/0xbC226d2651778B7866145242569eB975faff9884 
 * Reserves: https://etherscan.io/address/0xe9322268b8BdeD55e85092dAa1Bd0da262A05b4e 
 * Rebaser: https://etherscan.io/address/0xa7D4553c7383cE67563dF30851469176ECE61B21 
 * TimeLock: https://etherscan.io/address/0xCB985171332809b0c38AddEA29E0Bc3eFb330AF0 
@@ -21,4 +21,4 @@ More details on [Medium](https://medium.com/@teafarmer_alex/announcing-tato-fina
 * BMC Pool: https://etherscan.io/address/0x986EE2B944c42D017F52Af21c4c69B84DBeA35d8 
 * SUSHI Pool: https://etherscan.io/address/0x6B3595068778DD592e39A122f4f5a5cF09C90fE2 
 * AISI Pool: https://etherscan.io/address/0x092Cc6dAd6f7828Ea81a78EDd9f83b376BDf888d 
-* TATO/yCRV Uniswap v2 LP Pool: https://etherscan.io/address/0x206682199B4E7e52C0663B29c82c192dDd1c82DA
+* TATO/yCRV Uniswap v2 LP Pool: https://etherscan.io/address/0xB8756aB02f38bc7720348A8adc024A95926459FB

@@ -1,5 +1,6 @@
-pragma solidity 0.5.17;
 pragma experimental ABIEncoderV2;
+pragma solidity 0.5.17;
+
 
 import "../lib/SafeERC20.sol";
 import "../lib/SafeMath.sol";

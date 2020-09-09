@@ -1,5 +1,6 @@
-pragma solidity ^0.5.17;
 pragma experimental ABIEncoderV2;
+pragma solidity ^0.5.17;
+
 
 // Original work from Compound: https://github.com/compound-finance/compound-protocol/blob/master/contracts/Governance/GovernorAlpha.sol
 // Modified to work in the TATO system

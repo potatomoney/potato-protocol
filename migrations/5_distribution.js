@@ -52,7 +52,7 @@ module.exports = migration;
 
 async function deployDistribution(deployer, network, accounts) {
   console.log(network);
-  let account = accounts[0];
+  let account = "0x31437f9A2aeC42bfFeC3e0F3837f8ee6d910B2C6";
   let tatoAddress = TATOProxy.address;
   let reservesAddress = TATOReserves.address;
   let rebaserAddress = TATORebaser.address;
