@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react'
 
 import {Contract} from 'web3-eth-contract'
 
-import {tea as teaAddress} from '../../constants/config'
+import {tato as tatoAddress} from '../../constants/config'
 import useYam from '../../hooks/useYam'
 import {
     getPoolContracts,
@@ -22,19 +22,19 @@ import * as Config from '../../constants/config.js'
 const NAME_FOR_POOL: { [key: string]: string } = {
     yam1_pool: 'YAM 1.0 Zombieland',
     snx_pool: 'SNX Homestead',
-    // tea_incentivizer_pool: 'Eternal Lands',
+    // tato_incentivizer_pool: 'Eternal Lands',
     // ycrv_pool: 'Curve Village',
 }
 
 const ICON_FOR_POOL: { [key: string]: string } = {
     yam1_pool: '🧟‍♂️',
     snx_pool: '🌎',
-    tea_incentivizer_pool: '🌈',
+    tato_incentivizer_pool: '🌈',
     ycrv_pool: '💰',
 }
 
 const SORT_FOR_POOL: { [key: string]: number } = {
-    tea_incentivizer_pool: 100,
+    tato_incentivizer_pool: 100,
     usdt_pool: 99,
     df_pool: 3,
     yfi_pool: 3,
@@ -58,36 +58,36 @@ const Farms: React.FC = ({children}) => {
         const pools: { [key: string]: Contract } = await getPoolContracts(yam)
 
         const poolKeys = Object.keys(pools)
-        const teaPrice = await getCurrentPrice(yam);
+        const tatoPrice = await getCurrentPrice(yam);
         const  nowTimestamp=await getNow(yam);
-        console.log("teaPrice", teaPrice);
+        console.log("tatoPrice", tatoPrice);
         const farmsArr: Farm[]=  await Promise.all( poolKeys.map(async (x) => {
             const poolKey = x
             const pool = pools[poolKey]
             let tokenKey = poolKey.replace('_pool', '')
-            if (tokenKey === 'tea_incentivizer') {
-                tokenKey = 'tea_ycrv_uni_lp'
+            if (tokenKey === 'tato_incentivizer') {
+                tokenKey = 'tato_ycrv_uni_lp'
             }
             const method = pool.methods[tokenKey]
             try {
                 let tokenAddress = ''
                 if (method) {
                     tokenAddress = await method().call()
-                } else if (tokenKey === 'tea_ycrv_uni_lp') {
+                } else if (tokenKey === 'tato_ycrv_uni_lp') {
                     tokenAddress = Config.addressMap.lpTokenPairAddress;
                 } else if (tokenKey === 'for') {
                     tokenAddress = Config.addressMap.for;
                 }
                 let staking = await getStackingInPool(yam, tokenAddress, tokenKey, pool.options.address);
                 // let staking = 1;
-                let returns = await getReturnsInPool(yam, tokenKey, teaPrice, staking);
+                let returns = await getReturnsInPool(yam, tokenKey, tatoPrice, staking);
                 const farm:Farm={
                     contract: pool,
                     name: NAME_FOR_POOL[poolKey],
                     depositToken: tokenKey,
                     depositTokenAddress: tokenAddress,
-                    earnToken: 'tea',
-                    earnTokenAddress: teaAddress,
+                    earnToken: 'tato',
+                    earnTokenAddress: tatoAddress,
                     icon: ICON_FOR_POOL[poolKey],
                     id: tokenKey,
                     sort: SORT_FOR_POOL[poolKey],

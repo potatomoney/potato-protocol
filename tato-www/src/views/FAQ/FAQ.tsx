@@ -61,11 +61,11 @@ const FAQ: React.FC = () => {
       </Container>
 
       <StyledLinkBox>
-              <a href="https://twitter.com/tea_finance" target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Twitter</a>
+              <a href="https://twitter.com/tato_finance" target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Twitter</a>
               <a href="https://t.me/joinchat/UDqHJhQ-7QlYv-Bn0rZzRQ" target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Telegram</a>
-              <a href="https://github.com/teafinance/tea-protocol" target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>GitHub</a>
+              <a href="https://github.com/tatofinance/tato-protocol" target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>GitHub</a>
               <a href='https://etherscan.io/token/0x504fa07ad26bf82455bc67653e8aadb19d25fee3' target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Smart Contract</a>
-              <a href='https://uniswap.info/pair/0x206682199b4e7e52c0663b29c82c192ddd1c82da' target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Uniswap TEA-yCRV</a>
+              <a href='https://uniswap.info/pair/0x206682199b4e7e52c0663b29c82c192ddd1c82da' target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Uniswap TATO-yCRV</a>
       </StyledLinkBox>
     </Page>
   )

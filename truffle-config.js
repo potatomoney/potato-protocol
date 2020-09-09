@@ -6,6 +6,8 @@ module.exports = {
   compilers: {
     solc: {
       version: '0.5.17',
+      docker: process.env.DOCKER_COMPILER !== undefined
+        ? process.env.DOCKER_COMPILER === 'true' : true,
       parser: 'solcjs',
       settings: {
         optimizer: {
@@ -16,17 +18,15 @@ module.exports = {
       },
     },
   },
-  plugins: [
-     'truffle-plugin-verify'
-  ],
-  api_keys: {
-    etherscan: '*******************'
-  },
   networks: {
-    test: {
-      host: '0.0.0.0',
-      port: 8545,
+    mainnet_test: {
       network_id: '1001',
+      provider: () => new HDWalletProvider(
+        [process.env.DEPLOYER_PRIVATE_KEY],
+        "http://localhost:8545",
+        0,
+        1,
+      ),
       gasPrice: 50000000000,
       gas: 8000000,
       network_id: '1001',
@@ -49,24 +49,28 @@ module.exports = {
     mainnet: {
       network_id: '1',
       provider: () => new HDWalletProvider(
-        '*******************',
-        'wss://mainnet.infura.io/ws/v3/*******************'
+        [process.env.DEPLOYER_PRIVATE_KEY],
+        process.env.MAINNET_KOVAN_API,
+        0,
+        1,
       ),
-      gasPrice: 480000000000, // 180 gwei
-      gas: 2000000,
-      skipDryRun: true,
-      timeoutBlocks: 8000,
+      gasPrice: 150000000000, // 150 gwei
+      gas: 8000000,
+      from: process.env.DEPLOYER_ACCOUNT,
+      timeoutBlocks: 800,
     },
     kovan: {
       network_id: '42',
       provider: () => new HDWalletProvider(
-       '*******************',
-        'wss://kovan.infura.io/ws/v3/*******************'
+        [process.env.DEPLOYER_PRIVATE_KEY],
+        process.env.INFURA_KOVAN_API,
+        0,
+        1,
       ),
-      gasPrice: 1000000000, // 1 gwei
-      gas: 10000000,
-      skipDryRun: true,
-      networkCheckTimeout:600000
+      gasPrice: 10000000000, // 10 gwei
+      gas: 6900000,
+      from: process.env.DEPLOYER_ACCOUNT,
+      timeoutBlocks: 2000,
     },
     dev: {
       host: 'localhost',
@@ -89,4 +93,10 @@ module.exports = {
       gasPrice: 1,
     },
   },
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+  api_keys: {
+    etherscan: process.env.ETHERSCAN_API_KEY
+  }
 };

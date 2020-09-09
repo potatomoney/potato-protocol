@@ -5,39 +5,39 @@ var fs = require('fs')
 
 // Protocol
 // deployed second
-const TEAImplementation = artifacts.require("TEADelegate");
-const TEAProxy = artifacts.require("TEADelegator");
+const TATOImplementation = artifacts.require("TATODelegate");
+const TATOProxy = artifacts.require("TATODelegator");
 
 // deployed third
-const TEAReserves = artifacts.require("TEAReserves");
-const TEARebaser = artifacts.require("TEARebaser");
+const TATOReserves = artifacts.require("TATOReserves");
+const TATORebaser = artifacts.require("TATORebaser");
 
 const Gov = artifacts.require("GovernorAlpha");
 const Timelock = artifacts.require("Timelock");
 
 // deployed fourth
-const TEA_USDTPool = artifacts.require("TEAUSDTPool");
-const TEA_YFIPool = artifacts.require("TEAYFIPool");
-const TEA_DFPool = artifacts.require("TEADFPool");
-const TEA_FORPool = artifacts.require("TEAFORPool");
-const TEA_GARDPool = artifacts.require("TEAGARDPool");
-const TEA_MATHPool = artifacts.require("TEAMATHPool");
-const TEA_MCBPool = artifacts.require("TEAMCBPool");
-const TEA_RENPool = artifacts.require("TEARENPool");
-const TEA_YCRVPool = artifacts.require("TEAYCRVPool");
-const TEA_BMCPool = artifacts.require("TEABMCPool");
-const TEA_SUSHIPool = artifacts.require("TEASUSHIPool");
-const TEA_AISIPool = artifacts.require("TEAAISIPool");
+const TATO_USDTPool = artifacts.require("TATOUSDTPool");
+const TATO_YFIPool = artifacts.require("TATOYFIPool");
+const TATO_DFPool = artifacts.require("TATODFPool");
+const TATO_FORPool = artifacts.require("TATOFORPool");
+const TATO_GARDPool = artifacts.require("TATOGARDPool");
+const TATO_MATHPool = artifacts.require("TATOMATHPool");
+const TATO_MCBPool = artifacts.require("TATOMCBPool");
+const TATO_RENPool = artifacts.require("TATORENPool");
+const TATO_YCRVPool = artifacts.require("TATOYCRVPool");
+const TATO_BMCPool = artifacts.require("TATOBMCPool");
+const TATO_SUSHIPool = artifacts.require("TATOSUSHIPool");
+const TATO_AISIPool = artifacts.require("TATOAISIPool");
 
 // deployed fifth
-const TEAIncentivizer = artifacts.require("TEAIncentivizer");
+const TATOIncentivizer = artifacts.require("TATOIncentivizer");
 
 //verify contract
-// example : truffle run verify TEADelegator --network kovan
+// example : truffle run verify TATODelegator --network kovan
 
 // deployed end
 //create_pair in uniswap
-//TEARebaser->init_twap->after 12h activate_rebasing->wait 16pm or 4am (UTC+8) rebase
+//TATORebaser->init_twap->after 12h activate_rebasing->wait 16pm or 4am (UTC+8) rebase
 
 
 const migration = async (deployer, network, accounts) => {
@@ -53,52 +53,52 @@ module.exports = migration;
 async function deployDistribution(deployer, network, accounts) {
   console.log(network);
   let account = accounts[0];
-  let teaAddress = TEAProxy.address;
-  let reservesAddress = TEAReserves.address;
-  let rebaserAddress = TEARebaser.address;
+  let tatoAddress = TATOProxy.address;
+  let reservesAddress = TATOReserves.address;
+  let rebaserAddress = TATORebaser.address;
   let tlAddress = Timelock.address;
   let govAddress = Gov.address;
   console.log("account =", account);
 
-  let tea = new web3.eth.Contract(TEAProxy.abi, teaAddress);
-  let yReserves = new web3.eth.Contract(TEAReserves.abi, reservesAddress);
-  let yRebaser = new web3.eth.Contract(TEARebaser.abi, rebaserAddress);
+  let tato = new web3.eth.Contract(TATOProxy.abi, tatoAddress);
+  let yReserves = new web3.eth.Contract(TATOReserves.abi, reservesAddress);
+  let yRebaser = new web3.eth.Contract(TATORebaser.abi, rebaserAddress);
   let tl = new web3.eth.Contract(Timelock.abi, tlAddress);
   let gov = new web3.eth.Contract(Gov.abi, govAddress);
   let pair = await yRebaser.methods.uniswap_pair().call();
 
   console.log("deploying pools")
-  await deployer.deploy(TEA_USDTPool, teaAddress);
-  await deployer.deploy(TEA_YFIPool, teaAddress);
-  await deployer.deploy(TEA_DFPool, teaAddress);
-  await deployer.deploy(TEA_FORPool, teaAddress);
-  await deployer.deploy(TEA_GARDPool, teaAddress);
-  await deployer.deploy(TEA_MATHPool, teaAddress);
-  await deployer.deploy(TEA_MCBPool, teaAddress);
-  await deployer.deploy(TEA_RENPool, teaAddress);
-  await deployer.deploy(TEA_YCRVPool, teaAddress);
-  await deployer.deploy(TEA_BMCPool, teaAddress);
-  await deployer.deploy(TEA_SUSHIPool, teaAddress);
-  await deployer.deploy(TEA_AISIPool, teaAddress);
+  await deployer.deploy(TATO_USDTPool, tatoAddress);
+  await deployer.deploy(TATO_YFIPool, tatoAddress);
+  await deployer.deploy(TATO_DFPool, tatoAddress);
+  await deployer.deploy(TATO_FORPool, tatoAddress);
+  await deployer.deploy(TATO_GARDPool, tatoAddress);
+  await deployer.deploy(TATO_MATHPool, tatoAddress);
+  await deployer.deploy(TATO_MCBPool, tatoAddress);
+  await deployer.deploy(TATO_RENPool, tatoAddress);
+  await deployer.deploy(TATO_YCRVPool, tatoAddress);
+  await deployer.deploy(TATO_BMCPool, tatoAddress);
+  await deployer.deploy(TATO_SUSHIPool, tatoAddress);
+  await deployer.deploy(TATO_AISIPool, tatoAddress);
 
-  await deployer.deploy(TEAIncentivizer, pair, teaAddress);
+  await deployer.deploy(TATOIncentivizer, pair, tatoAddress);
 
 
   //
-  let usdt_pool = new web3.eth.Contract(TEA_USDTPool.abi, TEA_USDTPool.address);
-  let yfi_pool = new web3.eth.Contract(TEA_YFIPool.abi, TEA_YFIPool.address);
-  let df_pool = new web3.eth.Contract(TEA_DFPool.abi, TEA_DFPool.address);
-  let for_pool = new web3.eth.Contract(TEA_FORPool.abi, TEA_FORPool.address);
-  let gard_pool = new web3.eth.Contract(TEA_GARDPool.abi, TEA_GARDPool.address);
-  let math_pool = new web3.eth.Contract(TEA_MATHPool.abi, TEA_MATHPool.address);
-  let mcb_pool = new web3.eth.Contract(TEA_MCBPool.abi, TEA_MCBPool.address);
-  let ren_pool = new web3.eth.Contract(TEA_RENPool.abi, TEA_RENPool.address);
-  let ycrv_pool = new web3.eth.Contract(TEA_YCRVPool.abi, TEA_YCRVPool.address);
-  let bmc_pool = new web3.eth.Contract(TEA_BMCPool.abi, TEA_BMCPool.address);
-  let sushi_pool = new web3.eth.Contract(TEA_SUSHIPool.abi, TEA_SUSHIPool.address);
-  let aisi_pool = new web3.eth.Contract(TEA_AISIPool.abi, TEA_AISIPool.address);
+  let usdt_pool = new web3.eth.Contract(TATO_USDTPool.abi, TATO_USDTPool.address);
+  let yfi_pool = new web3.eth.Contract(TATO_YFIPool.abi, TATO_YFIPool.address);
+  let df_pool = new web3.eth.Contract(TATO_DFPool.abi, TATO_DFPool.address);
+  let for_pool = new web3.eth.Contract(TATO_FORPool.abi, TATO_FORPool.address);
+  let gard_pool = new web3.eth.Contract(TATO_GARDPool.abi, TATO_GARDPool.address);
+  let math_pool = new web3.eth.Contract(TATO_MATHPool.abi, TATO_MATHPool.address);
+  let mcb_pool = new web3.eth.Contract(TATO_MCBPool.abi, TATO_MCBPool.address);
+  let ren_pool = new web3.eth.Contract(TATO_RENPool.abi, TATO_RENPool.address);
+  let ycrv_pool = new web3.eth.Contract(TATO_YCRVPool.abi, TATO_YCRVPool.address);
+  let bmc_pool = new web3.eth.Contract(TATO_BMCPool.abi, TATO_BMCPool.address);
+  let sushi_pool = new web3.eth.Contract(TATO_SUSHIPool.abi, TATO_SUSHIPool.address);
+  let aisi_pool = new web3.eth.Contract(TATO_AISIPool.abi, TATO_AISIPool.address);
 
-  let tea_incentivizer_pool = new web3.eth.Contract(TEAIncentivizer.abi, TEAIncentivizer.address);
+  let tato_incentivizer_pool = new web3.eth.Contract(TATOIncentivizer.abi, TATOIncentivizer.address);
   //
   console.log("setting distributor.......");
   await usdt_pool.methods.setRewardDistribution(account).send({from: account, gas: 100000});
@@ -127,11 +127,11 @@ async function deployDistribution(deployer, network, accounts) {
   console.log("aisi_pool.methods.setRewardDistribution");
 
 
-  await tea_incentivizer_pool.methods.setRewardDistribution(account).send({
+  await tato_incentivizer_pool.methods.setRewardDistribution(account).send({
     from: account,
     gas: 100000
   });
-  console.log("tea_incentivizer_pool.methods.setRewardDistribution");
+  console.log("tato_incentivizer_pool.methods.setRewardDistribution");
 
   //630,000
   let initReservesTokenInPool = web3.utils.toBN(630000).mul(web3.utils.toBN(10 ** 18));
@@ -141,34 +141,34 @@ async function deployDistribution(deployer, network, accounts) {
   let initAisiTokenInPool = web3.utils.toBN(106360).mul(web3.utils.toBN(10 ** 18));
 
   console.log("transfering.......");
-  await tea.methods.transfer(TEA_USDTPool.address, initReservesTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_USDTPool ");
-  await tea.methods.transfer(TEA_YFIPool.address, initOtherTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_YFIPool ");
-  await tea.methods.transfer(TEA_DFPool.address, initOtherTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_DFPool ");
-  await tea.methods.transfer(TEA_FORPool.address, initOtherTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_FORPool ");
-  await tea.methods.transfer(TEA_GARDPool.address, initOtherTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_GARDPool ");
-  await tea.methods.transfer(TEA_MATHPool.address, initOtherTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_MATHPool ");
-  await tea.methods.transfer(TEA_MCBPool.address, initOtherTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_MCBPool ");
-  await tea.methods.transfer(TEA_RENPool.address, initOtherTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_RENPool ");
-  await tea.methods.transfer(TEA_YCRVPool.address, initOtherTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_YCRVPool ");
-  await tea.methods.transfer(TEA_BMCPool.address, initOtherTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_BMCPool ");
-  await tea.methods.transfer(TEA_SUSHIPool.address, initOtherTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_SUSHIPool ");
-  await tea.methods.transfer(TEA_AISIPool.address, initAisiTokenInPool.toString()).send({from: account});
-  console.log("transfering TEA_AISIPool ");
+  await tato.methods.transfer(TATO_USDTPool.address, initReservesTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_USDTPool ");
+  await tato.methods.transfer(TATO_YFIPool.address, initOtherTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_YFIPool ");
+  await tato.methods.transfer(TATO_DFPool.address, initOtherTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_DFPool ");
+  await tato.methods.transfer(TATO_FORPool.address, initOtherTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_FORPool ");
+  await tato.methods.transfer(TATO_GARDPool.address, initOtherTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_GARDPool ");
+  await tato.methods.transfer(TATO_MATHPool.address, initOtherTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_MATHPool ");
+  await tato.methods.transfer(TATO_MCBPool.address, initOtherTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_MCBPool ");
+  await tato.methods.transfer(TATO_RENPool.address, initOtherTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_RENPool ");
+  await tato.methods.transfer(TATO_YCRVPool.address, initOtherTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_YCRVPool ");
+  await tato.methods.transfer(TATO_BMCPool.address, initOtherTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_BMCPool ");
+  await tato.methods.transfer(TATO_SUSHIPool.address, initOtherTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_SUSHIPool ");
+  await tato.methods.transfer(TATO_AISIPool.address, initAisiTokenInPool.toString()).send({from: account});
+  console.log("transfering TATO_AISIPool ");
 
 
-  await tea.methods._setIncentivizer(TEAIncentivizer.address).send({from: account});
-  console.log("tea.methods._setIncentivizer");
+  await tato.methods._setIncentivizer(TATOIncentivizer.address).send({from: account});
+  console.log("tato.methods._setIncentivizer");
 
   console.log("notifying.......")
   await usdt_pool.methods.notifyRewardAmount(initReservesTokenInPool.toString()).send({from: account});
@@ -197,11 +197,11 @@ async function deployDistribution(deployer, network, accounts) {
   console.log("notifying aisi_pool")
 
   // incentives is a minter and prepopulates itself.
-  await tea_incentivizer_pool.methods.notifyRewardAmount("0").send({
+  await tato_incentivizer_pool.methods.notifyRewardAmount("0").send({
     from: account,
     gas: 500000
   });
-  console.log("notifying tea_incentivizer_pool")
+  console.log("notifying tato_incentivizer_pool")
 
   console.log("set reward distribution to timelock.......")
   await usdt_pool.methods.setRewardDistribution(tlAddress).send({from: account, gas: 100000});
@@ -229,11 +229,11 @@ async function deployDistribution(deployer, network, accounts) {
   await aisi_pool.methods.setRewardDistribution(tlAddress).send({from: account, gas: 100000});
   console.log("aisi_pool set reward distribution to timelock")
 
-  await  tea_incentivizer_pool.methods.setRewardDistribution(tlAddress).send({
+  await  tato_incentivizer_pool.methods.setRewardDistribution(tlAddress).send({
     from: account,
     gas: 100000
   });
-  console.log("tea_incentivizer_pool set reward distribution to timelock")
+  console.log("tato_incentivizer_pool set reward distribution to timelock")
 
   console.log("transer ownership for pools.......")
   await usdt_pool.methods.transferOwnership(tlAddress).send({from: account, gas: 100000});
@@ -261,23 +261,23 @@ async function deployDistribution(deployer, network, accounts) {
   await aisi_pool.methods.transferOwnership(tlAddress).send({from: account, gas: 100000});
   console.log("aisi_pool transer ownership for pools")
 
-  await tea_incentivizer_pool.methods.transferOwnership(tlAddress).send({
+  await tato_incentivizer_pool.methods.transferOwnership(tlAddress).send({
     from: account,
     gas: 100000
   });
-  console.log("tea_incentivizer_pool transer ownership for pools")
+  console.log("tato_incentivizer_pool transer ownership for pools")
 
   console.log("transer ownership for all.......")
-  await tea.methods._setPendingGov(tlAddress).send({from: account});
-  console.log(" tea transer ownership")
+  await tato.methods._setPendingGov(tlAddress).send({from: account});
+  console.log(" tato transer ownership")
   await yReserves.methods._setPendingGov(tlAddress).send({from: account});
   console.log(" reserves transer ownership")
   await yRebaser.methods._setPendingGov(tlAddress).send({from: account});
   console.log(" rebaser transer ownership")
 
   console.log("accept ownership.......")
-  await tl.methods.executeTransaction(teaAddress, 0, "_acceptGov()", "0x", 0).send({from: account});
-  console.log("tea accept ownership")
+  await tl.methods.executeTransaction(tatoAddress, 0, "_acceptGov()", "0x", 0).send({from: account});
+  console.log("tato accept ownership")
   await tl.methods.executeTransaction(reservesAddress, 0, "_acceptGov()", "0x", 0).send({from: account});
   console.log("reserves accept ownership")
   await tl.methods.executeTransaction(rebaserAddress, 0, "_acceptGov()", "0x", 0).send({from: account});
@@ -293,25 +293,25 @@ async function deployDistribution(deployer, network, accounts) {
 
 
   console.log("Pair Address=", await  yRebaser.methods.uniswap_pair().call());
-  console.log("TEA Address=", teaAddress);
+  console.log("TATO Address=", tatoAddress);
   console.log("Reserves Address=", reservesAddress);
   console.log("Rebaser Address=", rebaserAddress);
   console.log("TimeLock Address=", tlAddress);
   console.log("GOV Address=", govAddress);
-  console.log("TEA_USDTPool Address=", TEA_USDTPool.address);
-  console.log("TEA_YFIPool Address=", TEA_YFIPool.address);
-  console.log("TEA_DFPool Address=", TEA_DFPool.address);
-  console.log("TEA_FORPool Address=", TEA_FORPool.address);
-  console.log("TEA_GARDPool Address=", TEA_GARDPool.address);
-  console.log("TEA_MATHPool Address=", TEA_MATHPool.address);
-  console.log("TEA_MCBPool Address=", TEA_MCBPool.address);
-  console.log("TEA_RENPool Address=", TEA_RENPool.address);
-  console.log("TEA_YCRVPool Address=", TEA_YCRVPool.address);
-  console.log("TEA_BMCPool Address=", TEA_BMCPool.address);
-  console.log("TEA_SUSHIPool Address=", TEA_SUSHIPool.address);
-  console.log("TEA_AISIPool Address=", TEA_AISIPool.address);
+  console.log("TATO_USDTPool Address=", TATO_USDTPool.address);
+  console.log("TATO_YFIPool Address=", TATO_YFIPool.address);
+  console.log("TATO_DFPool Address=", TATO_DFPool.address);
+  console.log("TATO_FORPool Address=", TATO_FORPool.address);
+  console.log("TATO_GARDPool Address=", TATO_GARDPool.address);
+  console.log("TATO_MATHPool Address=", TATO_MATHPool.address);
+  console.log("TATO_MCBPool Address=", TATO_MCBPool.address);
+  console.log("TATO_RENPool Address=", TATO_RENPool.address);
+  console.log("TATO_YCRVPool Address=", TATO_YCRVPool.address);
+  console.log("TATO_BMCPool Address=", TATO_BMCPool.address);
+  console.log("TATO_SUSHIPool Address=", TATO_SUSHIPool.address);
+  console.log("TATO_AISIPool Address=", TATO_AISIPool.address);
 
-  console.log("TEAIncentivizer Address=", TEAIncentivizer.address);
+  console.log("TATOIncentivizer Address=", TATOIncentivizer.address);
 
 
 }

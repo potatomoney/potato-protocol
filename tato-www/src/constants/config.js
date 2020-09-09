@@ -1,4 +1,4 @@
-export const tea = '0x504FA07ad26bF82455bC67653E8aaDB19d25FEe3';
+export const tato = '0x504FA07ad26bF82455bC67653E8aaDB19d25FEe3';
 export const addressMap = {
   uniswapFactoryV2: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
   UNIRouter: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",

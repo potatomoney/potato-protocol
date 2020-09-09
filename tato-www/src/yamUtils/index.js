@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import {stratTimestamp} from '../constants/config.js';
 
 import {ChainId, WETH, Fetcher, Route} from '@uniswap/sdk'
-import {addressMap, networkId, tea} from '../constants/config.js';
+import {addressMap, networkId, tato} from '../constants/config.js';
 
 BigNumber.config({
   EXPONENTIAL_AT: 1000,
@@ -101,7 +101,7 @@ export const getPoolContracts = async (yam) => {
 }
 
 export const getEarned = async (yam, pool, account) => {
-  const scalingFactor = new BigNumber(await yam.contracts.yam.methods.teasScalingFactor().call())
+  const scalingFactor = new BigNumber(await yam.contracts.yam.methods.tatosScalingFactor().call())
   const earned = new BigNumber(await pool.methods.earned(account).call())
   return earned.multipliedBy(scalingFactor.dividedBy(new BigNumber(10).pow(18)))
 }
@@ -120,9 +120,9 @@ export const getPrice = async (yam, tokenAddr, tokenName) => {
   console.log(tokenName + " price", route.midPrice.invert().toSignificant(6));
   return yam.toBigN(route.midPrice.invert().toSignificant(6));
 }
-//获取tea价格
+//获取tato价格
 export const getCurrentPrice = async (yam) => {
-  const token = await Fetcher.fetchTokenData(networkId, tea);
+  const token = await Fetcher.fetchTokenData(networkId, tato);
   const ycrv = await Fetcher.fetchTokenData(networkId, addressMap.ycrv);
   const tokenPair = await Fetcher.fetchPairData(token, ycrv);
   const route = new Route([tokenPair], ycrv)
@@ -133,7 +133,7 @@ export const getCurrentPrice = async (yam) => {
 }
 
 export const getTotalSupplyInPool = async (yam, tokenName) => {
-  if (tokenName == 'tea_ycrv_uni_lp') {
+  if (tokenName == 'tato_ycrv_uni_lp') {
     return yam.toBigN(24000000).toFixed(0);
   } else if (tokenName == 'usdt') {
     return yam.toBigN(630000).toFixed(0);
@@ -149,14 +149,14 @@ return  await yam.web3.eth.getBlock('latest').then(res => res.timestamp);
 export const getDistributedInPool = async (yam, tokenName,now) => {
   let total = await getTotalSupplyInPool(yam, tokenName);
   let timePassed = now - stratTimestamp;
-  if (tokenName == 'tea_ycrv_uni_lp') {
+  if (tokenName == 'tato_ycrv_uni_lp') {
     timePassed = now - 1599148800;
   }
   console.log(tokenName + " timePassed ", timePassed);
   if (0 > timePassed) {
     return 0;
   }
-  if (tokenName != 'tea_ycrv_uni_lp') {
+  if (tokenName != 'tato_ycrv_uni_lp') {
     let duration = 1316200;
     if (timePassed > 1316200) {
       return total;
@@ -185,7 +185,7 @@ export const getStackingInPool = async (yam, tokenAddr, tokenName, poolAddress) 
     return 0;
   }
   let price = 1;
-  if (tokenName != 'usdt' && tokenName != 'tea_ycrv_uni_lp' && tokenName != 'aisi') {
+  if (tokenName != 'usdt' && tokenName != 'tato_ycrv_uni_lp' && tokenName != 'aisi') {
     price = await getPrice(yam, tokenAddr, tokenName);
   }
   console.log(tokenName + " stacking", balance);
@@ -195,9 +195,9 @@ export const getStackingInPool = async (yam, tokenAddr, tokenName, poolAddress) 
     return yam.toBigN(balance).div(10 ** 18).multipliedBy(price).toFixed(2);
   }
 }
-export const getReturnsInPool = async (yam, tokenName, teaPrice, stacking) => {
+export const getReturnsInPool = async (yam, tokenName, tatoPrice, stacking) => {
   let dailyReturnByTea = yam.toBigN(106364).div(15);
-  if (tokenName == 'tea_ycrv_uni_lp') {
+  if (tokenName == 'tato_ycrv_uni_lp') {
     dailyReturnByTea = yam.toBigN(600000).div(7);
   } else if (tokenName == 'usdt') {
     dailyReturnByTea = yam.toBigN(630000).div(15);
@@ -207,7 +207,7 @@ export const getReturnsInPool = async (yam, tokenName, teaPrice, stacking) => {
   if (stacking == 0) {
     return {'dailyReturn': 0, 'annualizedReturn': 0}
   }
-  let dailyReturn = dailyReturnByTea.multipliedBy(teaPrice * 100).div(stacking);
+  let dailyReturn = dailyReturnByTea.multipliedBy(tatoPrice * 100).div(stacking);
   let annualizedReturn = dailyReturn.multipliedBy(360);
   return {'dailyReturn': dailyReturn.toFixed(1), 'annualizedReturn': annualizedReturn.toFixed(1)}
 }
@@ -306,7 +306,7 @@ export const getVotes = async (yam) => {
 }
 
 export const getScalingFactor = async (yam) => {
-  return new BigNumber(await yam.contracts.yam.methods.teasScalingFactor().call()).dividedBy(new BigNumber(10).pow(18))
+  return new BigNumber(await yam.contracts.yam.methods.tatosScalingFactor().call()).dividedBy(new BigNumber(10).pow(18))
 }
 
 export const getDelegatedBalance = async (yam, account) => {

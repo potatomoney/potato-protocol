@@ -2,13 +2,13 @@
 
 // Token
 // deployed first
-const TEAImplementation = artifacts.require("TEADelegate");
-const TEAProxy = artifacts.require("TEADelegator");
+const TATOImplementation = artifacts.require("TATODelegate");
+const TATOProxy = artifacts.require("TATODelegator");
 
 // Rs
 // deployed second
-const TEAReserves = artifacts.require("TEAReserves");
-const TEARebaser = artifacts.require("TEARebaser");
+const TATOReserves = artifacts.require("TATOReserves");
+const TATORebaser = artifacts.require("TATORebaser");
 
 // ============ Main Migration ============
 
@@ -25,22 +25,22 @@ module.exports = migration;
 async function deployRs(deployer, network) {
   let reserveToken = "0xdF5e0e81Dff6FAF3A7e52BA697820c5e32D806A8"; // ycrv
   let uniswap_factory = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f";
-  await deployer.deploy(TEAReserves, reserveToken, TEAProxy.address);
-  await deployer.deploy(TEARebaser,
-    TEAProxy.address,
+  await deployer.deploy(TATOReserves, reserveToken, TATOProxy.address);
+  await deployer.deploy(TATORebaser,
+    TATOProxy.address,
     reserveToken,
     uniswap_factory,
-    TEAReserves.address
+    TATOReserves.address
   );
-  let rebase = new web3.eth.Contract(TEARebaser.abi, TEARebaser.address);
+  let rebase = new web3.eth.Contract(TATORebaser.abi, TATORebaser.address);
 
   let pair = await rebase.methods.uniswap_pair().call();
-  console.log("TEA <-> YCRV UNISWAP Pair: ", pair)
-  let tea = await TEAProxy.deployed();
-  await tea._setRebaser(TEARebaser.address);
-  console.log("tea._setRebaser");
-  let reserves = await TEAReserves.deployed();
-  await reserves._setRebaser(TEARebaser.address)
+  console.log("TATO <-> YCRV UNISWAP Pair: ", pair)
+  let tato = await TATOProxy.deployed();
+  await tato._setRebaser(TATORebaser.address);
+  console.log("tato._setRebaser");
+  let reserves = await TATOReserves.deployed();
+  await reserves._setRebaser(TATORebaser.address)
   console.log("reserves._setRebaser");
 
 }

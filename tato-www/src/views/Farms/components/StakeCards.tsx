@@ -10,7 +10,7 @@ import useFarms from '../../../hooks/useFarms'
 import { Farm } from '../../../contexts/Farms'
 
 import { getPoolStartTime } from '../../../yamUtils'
-import loadImg from '../../../assets/img/tea-loading.png'
+import loadImg from '../../../assets/img/tato-loading.png'
 
 
 const moneyFilter = (s:number, n:number) => {
@@ -45,7 +45,7 @@ const FarmCards: React.FC = () => {
   
     rows.map((farmRow,i)=>{
         farmRow.map((farm)=>{
-            if(farm.depositToken.toUpperCase()=='TEA_YCRV_UNI_LP'){
+            if(farm.depositToken.toUpperCase()=='TATO_YCRV_UNI_LP'){
                 allFarmRows.push(farm)
             }
         })
@@ -57,9 +57,9 @@ const FarmCards: React.FC = () => {
             <StyledThead>
                 <td>Staking Token</td>
                 <td>Staking $ in Pool</td>
-                <td>Distributed / Total TEA</td>
+                <td>Distributed / Total TATO</td>
                 <td>Return (Daily/Annualized)</td>
-                <td>Stake to earn TEA</td>
+                <td>Stake to earn TATO</td>
             </StyledThead>
        </StyledTbody>
       {!!rows[0].length ?   

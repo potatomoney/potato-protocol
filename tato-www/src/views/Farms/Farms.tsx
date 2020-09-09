@@ -18,7 +18,7 @@ import FarmCards from './components/FarmCards'
 import StakeCards from './components/StakeCards'
 
 import backgroundImg from '../../assets/img/background.png'
-import teaBackgroundImg from '../../assets/img/tea-background.png'
+import tatoBackgroundImg from '../../assets/img/tea-background.png'
 
 const Farms: React.FC = () => {
   const { path } = useRouteMatch()
@@ -59,7 +59,7 @@ const Farms: React.FC = () => {
           <Route exact path={path}>
               <StyledBackground><img src={backgroundImg}/></StyledBackground>
               <div style={{overflow:'hidden'}}>
-              <StyledTeaBackground><img src={teaBackgroundImg} /></StyledTeaBackground>
+              <StyledTeaBackground><img src={tatoBackgroundImg} /></StyledTeaBackground>
               </div>
               
               <PageHeader
@@ -80,12 +80,12 @@ const Farms: React.FC = () => {
             
             <StyledStake>
                <StyledStakeType>UniSwap LP Token Staking</StyledStakeType>
-               <StyledStakeDesc>Providing liquidity for <a target="_blank" href="https://uniswap.info/pair/0x206682199b4e7e52c0663b29c82c192ddd1c82da">TEA-yCRV pair</a>  on Uniswap to obtain Uniswap LP token, staking to the following pool to yield. Distrbuting 3571 TEA per hour.</StyledStakeDesc>
+               <StyledStakeDesc>Providing liquidity for <a target="_blank" href="https://uniswap.info/pair/0x206682199b4e7e52c0663b29c82c192ddd1c82da">TATO-yCRV pair</a>  on Uniswap to obtain Uniswap LP token, staking to the following pool to yield. Distrbuting 3571 TATO per hour.</StyledStakeDesc>
                <StakeCards />
             </StyledStake>
             <StyledStake style={{padding: '0 0 100px 0'}}>
                <StyledStakeType>Yield Staking</StyledStakeType>
-               <StyledStakeDesc>Earn TEA tokens by staking community tokens.</StyledStakeDesc>
+               <StyledStakeDesc>Earn TATO tokens by staking community tokens.</StyledStakeDesc>
                <FarmCards />
             </StyledStake>
           </Route>
@@ -94,11 +94,11 @@ const Farms: React.FC = () => {
           </Route>
 
           <StyledLinkBox>
-                  <a href="https://twitter.com/tea_finance" target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Twitter</a>
+                  <a href="https://twitter.com/tato_finance" target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Twitter</a>
                   <a href="https://t.me/joinchat/UDqHJhQ-7QlYv-Bn0rZzRQ" target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Telegram</a>
-                  <a href="https://github.com/teafinance/tea-protocol" target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>GitHub</a>
+                  <a href="https://github.com/tatofinance/tato-protocol" target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>GitHub</a>
                   <a href='https://etherscan.io/token/0x504fa07ad26bf82455bc67653e8aadb19d25fee3' target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Smart Contract</a>
-                  <a href='https://uniswap.info/pair/0x206682199b4e7e52c0663b29c82c192ddd1c82da' target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Uniswap TEA-yCRV</a>
+                  <a href='https://uniswap.info/pair/0x206682199b4e7e52c0663b29c82c192ddd1c82da' target="_blank" style={{color:'#757E94',fontSize:'14px',margin:'0 30px 0 0'}}>Uniswap TATO-yCRV</a>
           </StyledLinkBox>
         </>
       ) : (

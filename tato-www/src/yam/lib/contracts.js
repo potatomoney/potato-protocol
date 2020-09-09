@@ -1,32 +1,32 @@
 import BigNumber from 'bignumber.js/bignumber';
 import Web3 from 'web3';
 import * as Types from "./types.js";
-import {SUBTRACT_GAS_LIMIT, addressMap, tea as tokenAddress} from '../../constants/config.js';
+import {SUBTRACT_GAS_LIMIT, addressMap, tato as tokenAddress} from '../../constants/config.js';
 
 import ERC20Json from '../clean_build/contracts/IERC20.json';
-import TEAJson from '../clean_build/contracts/TEADelegator.json';
-import TEARebaserJson from '../clean_build/contracts/TEARebaser.json';
-import TEAReservesJson from '../clean_build/contracts/TEAReserves.json';
-import TEAGovJson from '../clean_build/contracts/GovernorAlpha.json';
-import TEATimelockJson from '../clean_build/contracts/Timelock.json';
+import TATOJson from '../clean_build/contracts/TATODelegator.json';
+import TATORebaserJson from '../clean_build/contracts/TATORebaser.json';
+import TATOReservesJson from '../clean_build/contracts/TATOReserves.json';
+import TATOGovJson from '../clean_build/contracts/GovernorAlpha.json';
+import TATOTimelockJson from '../clean_build/contracts/Timelock.json';
 import UNIFactJson from './unifact2.json';
 import UNIPairJson from './uni2.json';
 import UNIRouterJson from './uniR.json';
 
-import USDTPoolJson from '../clean_build/contracts/TEAUSDTPool.json';
-import YFIPoolJson from '../clean_build/contracts/TEAYFIPool.json';
-import DFPoolJson from '../clean_build/contracts/TEADFPool.json';
-import FORPoolJson from '../clean_build/contracts/TEAFORPool.json';
-import GARDPoolJson from '../clean_build/contracts/TEAGARDPool.json';
-import MATHPoolJson from '../clean_build/contracts/TEAMATHPool.json';
-import MCBPoolJson from '../clean_build/contracts/TEAMCBPool.json';
-import RENPoolJson from '../clean_build/contracts/TEARENPool.json';
-import YCRVPoolJson from '../clean_build/contracts/TEAYCRVPool.json';
-import BMCPoolJson from '../clean_build/contracts/TEABMCPool.json';
-import SUSHIPoolJson from '../clean_build/contracts/TEASUSHIPool.json';
-import AISIPoolJson from '../clean_build/contracts/TEAAISIPool.json';
+import USDTPoolJson from '../clean_build/contracts/TATOUSDTPool.json';
+import YFIPoolJson from '../clean_build/contracts/TATOYFIPool.json';
+import DFPoolJson from '../clean_build/contracts/TATODFPool.json';
+import FORPoolJson from '../clean_build/contracts/TATOFORPool.json';
+import GARDPoolJson from '../clean_build/contracts/TATOGARDPool.json';
+import MATHPoolJson from '../clean_build/contracts/TATOMATHPool.json';
+import MCBPoolJson from '../clean_build/contracts/TATOMCBPool.json';
+import RENPoolJson from '../clean_build/contracts/TATORENPool.json';
+import YCRVPoolJson from '../clean_build/contracts/TATOYCRVPool.json';
+import BMCPoolJson from '../clean_build/contracts/TATOBMCPool.json';
+import SUSHIPoolJson from '../clean_build/contracts/TATOSUSHIPool.json';
+import AISIPoolJson from '../clean_build/contracts/TATOAISIPool.json';
 
-import IncJson from '../clean_build/contracts/TEAIncentivizer.json';
+import IncJson from '../clean_build/contracts/TATOIncentivizer.json';
 
 export class Contracts {
   constructor(
@@ -46,7 +46,7 @@ export class Contracts {
     this.uni_router = new this.web3.eth.Contract(UNIRouterJson, addressMap.UNIRouter);
     this.uni_fact = new this.web3.eth.Contract(UNIFactJson, addressMap.uniswapFactoryV2);
 
-    this.yam = new this.web3.eth.Contract(TEAJson.abi, tokenAddress);
+    this.yam = new this.web3.eth.Contract(TATOJson.abi, tokenAddress);
 
     this.usdt = new this.web3.eth.Contract(ERC20Json.abi, addressMap.usdt);
     this.usdt_pool = new this.web3.eth.Contract(USDTPoolJson.abi, addressMap.usdt_pool);
@@ -73,14 +73,14 @@ export class Contracts {
     this.aisi = new this.web3.eth.Contract(ERC20Json.abi, addressMap.aisi);
     this.aisi_pool = new this.web3.eth.Contract(AISIPoolJson.abi, addressMap.aisi_pool);
 
-    this.tea_incentivizer_pool = new this.web3.eth.Contract(IncJson.abi, addressMap.incentivizer_pool);
-    this.tea_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi, addressMap.lpTokenPairAddress);
+    this.tato_incentivizer_pool = new this.web3.eth.Contract(IncJson.abi, addressMap.incentivizer_pool);
+    this.tato_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi, addressMap.lpTokenPairAddress);
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
 
-    this.rebaser = new this.web3.eth.Contract(TEARebaserJson.abi, addressMap.rebaser);
-    this.reserves = new this.web3.eth.Contract(TEAReservesJson.abi, addressMap.reserves);
-    this.gov = new this.web3.eth.Contract(TEAGovJson.abi, addressMap.gov);
-    this.timelock = new this.web3.eth.Contract(TEATimelockJson.abi, addressMap.timelock);
+    this.rebaser = new this.web3.eth.Contract(TATORebaserJson.abi, addressMap.rebaser);
+    this.reserves = new this.web3.eth.Contract(TATOReservesJson.abi, addressMap.reserves);
+    this.gov = new this.web3.eth.Contract(TATOGovJson.abi, addressMap.gov);
+    this.timelock = new this.web3.eth.Contract(TATOTimelockJson.abi, addressMap.timelock);
     this.setProvider(provider, networkId);
     this.setDefaultAccount(this.web3.eth.defaultAccount);
 
@@ -97,11 +97,11 @@ export class Contracts {
     this.gov.setProvider(provider);
     this.timelock.setProvider(provider);
     const contracts = [
-      {contract: this.yam, json: TEAJson},
-      {contract: this.rebaser, json: TEARebaserJson},
-      {contract: this.reserves, json: TEAReservesJson},
-      {contract: this.gov, json: TEAGovJson},
-      {contract: this.timelock, json: TEATimelockJson},
+      {contract: this.yam, json: TATOJson},
+      {contract: this.rebaser, json: TATORebaserJson},
+      {contract: this.reserves, json: TATOReservesJson},
+      {contract: this.gov, json: TATOGovJson},
+      {contract: this.timelock, json: TATOTimelockJson},
       {contract: this.usdt_pool, json: USDTPoolJson},
       {contract: this.yfi_pool, json: YFIPoolJson},
       {contract: this.df_pool, json: DFPoolJson},
@@ -116,7 +116,7 @@ export class Contracts {
       {contract: this.aisi_pool, json: AISIPoolJson},
 
 
-      {contract: this.tea_incentivizer_pool, json: IncJson},
+      {contract: this.tato_incentivizer_pool, json: IncJson},
     ]
 
     contracts.forEach(contract => this.setContractProvider(
@@ -126,7 +126,7 @@ export class Contracts {
       networkId,
       ),
     );
-    this.tea_ycrv_uni_lp.options.address = addressMap.lpTokenPairAddress;
+    this.tato_ycrv_uni_lp.options.address = addressMap.lpTokenPairAddress;
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
   }

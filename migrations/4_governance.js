@@ -3,13 +3,13 @@
 
 // Token
 // deployed first
-const TEAImplementation = artifacts.require("TEADelegate");
-const TEAProxy = artifacts.require("TEADelegator");
+const TATOImplementation = artifacts.require("TATODelegate");
+const TATOProxy = artifacts.require("TATODelegator");
 
 // Rs
 // deployed second
-const TEAReserves = artifacts.require("TEAReserves");
-const TEARebaser = artifacts.require("TEARebaser");
+const TATOReserves = artifacts.require("TATOReserves");
+const TATORebaser = artifacts.require("TATORebaser");
 
 // Governance
 // deployed third
@@ -39,6 +39,6 @@ async function deployGovernance(deployer, network) {
   await deployer.deploy(Timelock);
   await deployer.deploy(Gov,
       Timelock.address,
-      TEAProxy.address
+      TATOProxy.address
   );
 }

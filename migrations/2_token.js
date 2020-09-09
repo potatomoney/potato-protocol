@@ -2,8 +2,8 @@
 
 // Token
 // deployed first
-const TEAImplementation = artifacts.require("TEADelegate");
-const TEAProxy = artifacts.require("TEADelegator");
+const TATOImplementation = artifacts.require("TATODelegate");
+const TATOProxy = artifacts.require("TATODelegator");
 
 // ============ Main Migration ============
 
@@ -19,23 +19,23 @@ module.exports = migration;
 
 
 async function deployToken(deployer, network) {
-  await deployer.deploy(TEAImplementation);
+  await deployer.deploy(TATOImplementation);
   if (network != "mainnet") {
-    await deployer.deploy(TEAProxy,
-      "TEA",
-      "TEA",
+    await deployer.deploy(TATOProxy,
+      "TATO",
+      "TATO",
       18,
       "1800000000000000000000000", // 1800k
-      TEAImplementation.address,
+      TATOImplementation.address,
       "0x"
     );
   } else {
-    await deployer.deploy(TEAProxy,
-      "TEA",
-      "TEA",
+    await deployer.deploy(TATOProxy,
+      "TATO",
+      "TATO",
       18,
       "1800000000000000000000000", // 1800k
-      TEAImplementation.address,
+      TATOImplementation.address,
       "0x"
     );
   }

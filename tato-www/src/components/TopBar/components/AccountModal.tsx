@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
 
-import { tea as teaAddress } from '../../../constants/config'
+import { tato as tatoAddress } from '../../../constants/config'
 import useTokenBalance from '../../../hooks/useTokenBalance'
 import { getDisplayBalance } from '../../../utils/formatBalance'
 
@@ -22,10 +22,10 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
     window.location.reload();
   }, [onDismiss])
 
-  const teaBalance = useTokenBalance(teaAddress)
+  const tatoBalance = useTokenBalance(tatoAddress)
   const displayBalance = useMemo(() => {
-    return getDisplayBalance(teaBalance)
-  }, [teaBalance])
+    return getDisplayBalance(tatoBalance)
+  }, [tatoBalance])
 
   return (
     <Modal>

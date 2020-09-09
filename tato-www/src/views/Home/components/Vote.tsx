@@ -174,7 +174,7 @@ const Vote: React.FC<VoteProps> = () => {
             justifyContent: 'center',
             marginTop: 32,
           }}>
-          <StyledLink target="__blank" href="https://twitter.com/tea_finance">More Info</StyledLink>
+          <StyledLink target="__blank" href="https://twitter.com/tato_finance">More Info</StyledLink>
         </div>
       </CardContent>
     </Card>
