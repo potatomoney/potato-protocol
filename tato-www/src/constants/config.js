@@ -35,7 +35,7 @@ export const addressMap = {
   aisi_pool:"0xBc5D4c899EBe2788cd8F7ce8910bBDB98e861053",
 };
 export const SUBTRACT_GAS_LIMIT = 100000;
-export const networkId = 1;
+export const networkId = 42;
 export const stratTimestamp = 1599062400;
 
 
